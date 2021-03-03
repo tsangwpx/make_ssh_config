@@ -1,0 +1,30 @@
+Host {{ tomato_hostnames }}
+    IdentityFile ~/.ssh/id_rsa
+    IdentityFile ~/.ssh/id_ed25519
+    User moonbird
+    HostName tomato.dot.astroplumage.net
+
+Match host {{ tomato_hostnames }} exec ~/.ssh/check_home.py
+    HostName 192.168.13.9
+    Port 22
+
+Match originalhost crystal exec ~/.ssh/at_home.py
+    HostName 192.168.13.21
+    Port 22
+
+Host crystal crystal.astroplumage.net crystal.dot.astroplumage.net
+    IdentityFile ~/.ssh/id_rsa
+    IdentityFile ~/.ssh/id_ed25519
+    Port 7022
+
+Host git.astroplumage.net gitlab.astroplumage.net
+    ProxyJump tomato
+    User git
+    RequestTTY no
+    IdentityFile ~/.ssh/git_ed25519_20210228
+
+Host github.com
+    User git
+    RequestTTY no
+    IdentityFile ~/.ssh/git_ed25519_20210228
+
